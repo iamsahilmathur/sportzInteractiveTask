@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">sportzInteractiveTask</string>
+    <string name="no_connection_available">Please check internet</string>
+    <string name="login">Login</string>
+    <string name="batting">Batting</string>
+    <string name="bowling">Bowling</string>
+    <string name="player_info">Players Info</string>
+</resources>
