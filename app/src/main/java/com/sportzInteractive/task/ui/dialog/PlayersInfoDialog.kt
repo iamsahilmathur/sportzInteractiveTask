@@ -10,7 +10,7 @@ import com.sportzInteractive.task.model.response.Players
 import kotlinx.android.synthetic.main.players_info_dialog.*
 
 class PlayersInfoDialog : DialogFragment(), View.OnClickListener {
-    var players:Players?=null
+    var players: Players? = null
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.imageViewClose -> {
@@ -34,26 +34,51 @@ class PlayersInfoDialog : DialogFragment(), View.OnClickListener {
         return view
     }
 
-    fun setPlayerInfo(players: Players)
-    {
-        this.players=players
+    fun setPlayerInfo(players: Players) {
+        this.players = players
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         try {
             imageViewClose.setOnClickListener(this)
             textViewPlayerName.text = players?.Name_Full
-            textViewBattingStyle.text="Style:- ${players?.Batting?.Style?:""}"
-            textViewRuns.text="Runs:- ${players?.Batting?.Runs?:""}"
-            textViewBattingAverage.text="Average:- ${players?.Batting?.Average?:"N.A"}"
-            textViewStrikeRate.text="Strike Rate:- ${players?.Batting?.Strikerate?:"N.A"}"
+            textViewBowlingStyle.text = "End:- ${players?.Bowling?.Style ?: ""}"
+            textViewWickets.text = "Wickets:- ${players?.Bowling?.Wickets ?: ""}"
+            textViewBowlingAvrg.text = "Average:- ${players?.Bowling?.Average ?: ""}"
+            textViewEconomy.text = "Economy:- ${players?.Bowling?.Economyrate ?: ""}"
 
-            textViewBowlingStyle.text="End:- ${players?.Bowling?.Style?:"N.A"}"
-            textViewEconomy.text="Economy:- ${players?.Bowling?.Economyrate?:"N.A"}"
-            textViewBowlingAvrg.text="Average:- ${players?.Bowling?.Average?:"N.A"}"
-            textViewWickets.text="Wickets:- ${players?.Bowling?.Wickets?:"N.A"}"
+            textViewRuns.text = "Runs:- ${players?.Batting?.Runs ?: ""}"
+            textViewBattingStyle.text = "Style:- ${players?.Batting?.Style ?: ""}"
+            textViewStrikeRate.text = "Strike Rate:- ${players?.Batting?.Strikerate ?: ""}"
+            textViewBattingAverage.text = "Average:- ${players?.Batting?.Average ?: ""}"
+
+
+            val playerInfo = getPlayerInfo(
+                players?.Iscaptain ?: false,
+                players?.Iskeeper ?: false
+            )
+
+            if (playerInfo!!.isEmpty()) {
+                textViewPlayerTypes.visibility = View.GONE
+            } else {
+                textViewPlayerTypes.text = playerInfo
+                textViewPlayerTypes.visibility = View.VISIBLE
+            }
         } catch (e: NullPointerException) {
             e.printStackTrace()
+        }
+    }
+
+    fun getPlayerInfo(isKeeper: Boolean, isCap: Boolean): String {
+        return if (isKeeper && isCap) {
+            "C & WC"
+        } else if (isCap) {
+            "C"
+        } else if (isKeeper) {
+            "WC"
+        } else {
+            ""
         }
     }
 }
