@@ -1,25 +1,32 @@
 package com.sportzInteractive.task.ui.adapter
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sportzInteractive.task.R
+import com.sportzInteractive.task.databinding.RowMatchListBinding
+import com.sportzInteractive.task.databinding.RowPlayerListBinding
 import com.sportzInteractive.task.model.response.Players
-import kotlinx.android.synthetic.main.row_match_list.view.*
 import kotlinx.android.synthetic.main.row_player_list.view.*
 
 class PlayerAdapter(
     val context: Context,
-    var playersList: ArrayList<Players>,
-    var listener: OnItemClickedListener
+    var listener:OnItemClickedListener
 ) :
     RecyclerView.Adapter<PlayerAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.row_player_list, parent, false)
-        return ViewHolder(view)
+    var playersList=ArrayList<Players>()
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val binding = DataBindingUtil.inflate<RowPlayerListBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.row_player_list, parent, false
+        )
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -48,17 +55,24 @@ class PlayerAdapter(
         }
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun setPlayerList(players: java.util.ArrayList<Players>) {
+        playersList.clear()
+        playersList.addAll(players)
+        notifyDataSetChanged()
+    }
+
+
+    inner class ViewHolder(private val itemBinding: RowPlayerListBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(items: Players) {
-            itemView.playerName.text = "${items.Name_Full}"
+            itemBinding.playerName.text = "${items.Name_Full}"
             val playerInfo = getPlayerInfo(
                 items.Iscaptain ?: false,
                 items.Iskeeper ?: false
             )
             if (playerInfo.isEmpty()) {
-                itemView.textViewPlayerInfo.text = items.Batting?.Style
+                itemBinding.textViewPlayerInfo.text = items.Batting?.Style
             } else {
-                itemView.textViewPlayerInfo.text = playerInfo + "-" + items.Batting?.Style
+                itemBinding.textViewPlayerInfo.text = playerInfo + "-" + items.Batting?.Style
             }
             itemView.setOnClickListener {
                 listener.itemClicked(items)

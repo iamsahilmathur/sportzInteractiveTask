@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.home.HomeFragment">
+
+    <data>
+
+        <variable
+            name="homeVM"
+            type="com.sportzInteractive.task.ui.viewModel.MatchInfoViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioGroup
+                android:id="@+id/radioGroupTeams"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp5"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioButtonTeamOne"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_switch_toggle_white"
+                    android:button="@null"
+                    android:textColor="@color/radiobuttonstate"
+
+                    android:gravity="center"
+                    android:textSize="@dimen/sp14" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioButtonTeamTwo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_switch_toggle_white"
+                    android:button="@null"
+                    android:textColor="@color/radiobuttonstate"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp14" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioButtonTeamBoth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_switch_toggle_white"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Display All"
+                    android:textColor="@color/radiobuttonstate"
+                    android:textSize="@dimen/sp14" />
+
+            </RadioGroup>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/dp5"
+            android:text="Players"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTeamOne"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTeamTwo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -5,9 +5,7 @@ import android.net.ConnectivityManager
 import java.io.IOException
 
 object NetworkUtils {
-
     private val TAG = NetworkUtils::class.java.name
-
     fun isOnline(context: Context): Boolean {
         val connectivityManager: ConnectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

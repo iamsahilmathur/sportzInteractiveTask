@@ -5,21 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
-import com.sportzInteractive.task.utils.AppPreferences
-import com.sportzInteractive.task.utils.Validator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 abstract class BaseActivity : AppCompatActivity() {
-
-
-    @Inject
-    lateinit var appPreferences: AppPreferences
-
-    @Inject
-    lateinit var validator: Validator
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(findContentView())

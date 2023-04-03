@@ -22,6 +22,7 @@
     <dimen name="dp22">22dp</dimen>
     <dimen name="dp60">100dp</dimen>
     <dimen name="dp35">35dp</dimen>
+    <dimen name="dp40">40dp</dimen>
 
     <dimen name="sp5">5sp</dimen>
     <dimen name="sp6">6sp</dimen>

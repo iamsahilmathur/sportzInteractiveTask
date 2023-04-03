@@ -1,7 +1,6 @@
-package com.sportzInteractive.task.ui.activity.home
+package com.sportzInteractive.task.ui.viewModel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sportzInteractive.task.extentions.manageNetwork
@@ -20,17 +19,13 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class MatchInfoViewModel @Inject constructor(
     private val repository: Repository,
     @ApplicationContext val context: Context,
 ) : ViewModel() {
-
     var delegateMatchInfo = SingleLiveData<List<MatchInfoData>>()
-
-    var matchInfoList=ArrayList<MatchInfoData>()
-
+    var matchInfoList = ArrayList<MatchInfoData>()
     val errorLiveData: SingleLiveData<ErrorModelView> = SingleLiveData()
-
     var exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         errorLiveData.postValue(
             ErrorModelView(
@@ -45,6 +40,7 @@ class HomeViewModel @Inject constructor(
             ?.launch(exceptionHandler) {
                 withContext(Dispatchers.IO) {
                     repository.getMatchInfo(MATCH_INFO_1).apply {
+                        matchInfoList.clear()
                         matchInfoList.add(filterDataInfo(this))
                         getMatchInfoOther()
                     }
